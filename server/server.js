@@ -5,7 +5,7 @@ const morgan = require('morgan');
 const helmet = require('helmet');
 
 require('dotenv').config();
-
+require('./config/passport');
 const app = express();
 const port = process.env.PORT || 4000;
 
@@ -22,6 +22,10 @@ mongoose.connection.once('open', () => {
   readyStates = ['Disconnected', 'Connected', 'Connecting', 'Disconnecting'];
   console.log(`MongoDB Status: ${readyStates[mongoose.connection.readyState]}`);
 })
+
+const usersRoute = require('./routes/users');
+
+app.use('/users', usersRoute);
 
 app.listen(port, () => {
   console.log(`Listening to port ${port}!`)
