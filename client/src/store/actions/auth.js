@@ -28,6 +28,12 @@ export const authSuccess = (response) => {
   }
 }
 
+export const authLogout = () => {
+  return {
+    type: actionTypes.AUTH_LOGOUT
+  }
+}
+
 export const auth = (email, password) => {
   return dispatch => {
     dispatch(authStart());

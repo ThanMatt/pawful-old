@@ -8,7 +8,7 @@ class Navbar extends Component {
     return (
       <nav className="navbar is-info">
         <div className="navbar-brand">
-          <label className="title is-5 has-text-white navbar-item">Pawful</label>
+          <label className="title is-5 has-text-black navbar-item">Pawful</label>
         </div>
         <div className="navbar-menu">
           <div className="navbar-end">
@@ -16,6 +16,11 @@ class Navbar extends Component {
               <Link className="navbar-item">
                 Hello, { username }
               </Link>
+              <div className="navbar-dropdown">
+                <Link to="/logout" className="navbar-item">
+                  Log Out
+                </Link>
+              </div>
             </div>
           </div>
         </div>

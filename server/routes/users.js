@@ -3,8 +3,10 @@ const User = require('../models/user-model');
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
+const sgMail = require('@sendgrid/mail');
 
 require('dotenv').config();
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 router.get('/', (req, res) => {
   User.find({})
@@ -31,17 +33,28 @@ router.post('/register', async (req, res) => {
       password: hashedPassword,
       animal,
       birthday
-    }).save().then(() => res.status(200).json({
-      message: 'Registration successful!'
-    })).catch((err) => {
+    }).save().then(() => {
+      msg = {
+        to: email,
+        from: 'no-reply@gmail.com',
+        subject: `You've registered on Pawful`,
+        text: 'testing testin',
+        html: '<strong>This is a test message</strong>'
+      };
+      sgMail.send(msg);
+
+      res.status(200).json({
+        message: 'Registration Successful!'
+      })
+    }).catch((err) => {
       console.log(err)
       res.status(500).json({
-        message: 'There was an error'
+        message: 'There was an error. Please reload the page'
       })
     })
   } catch (error) {
     console.log(error);
-    res.status(400).json({
+    res.status(500).json({
       message: 'There was an error. Please reload the page'
     })
   }
