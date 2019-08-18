@@ -49,15 +49,14 @@ router.post('/register', async (req, res) => {
 })
 
 router.post('/login', (req, res, next) => {
-  passport.authenticate('login', (err, user) => {
+  passport.authenticate('login', (err, user, info) => {
     if (err) {
       console.log(err);
       return res.status(500).json({ message: 'There was an error' })
     }
-
     if (!user) {
-      return res.json({
-        message: 'Incorrect email or password!'
+      return res.status(400).json({
+        message: info.message
       })
     }
 

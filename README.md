@@ -1,3 +1,3 @@
-# Just a simple boilerplate with create-react-app
+## A joke social media platform for pets (dogs and cats)
 
-This is a simple fullstack setup (express, mongoose, and create-react-app). 
+# React + Express
