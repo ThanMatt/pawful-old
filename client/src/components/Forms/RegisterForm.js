@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from '../../axios-user';
+import { Redirect } from 'react-router-dom';
 
 class RegisterForm extends Component {
   state = {
@@ -32,8 +33,11 @@ class RegisterForm extends Component {
       password,
       animal,
       birthday
-    }).then((response) => console.log(response))
-      .catch((err) => console.log(err))
+    }).then(() => {
+      return (
+        <Redirect to="/login" />
+      )
+    }).catch((err) => console.log(err))
   }
 
   changeHandler = (event) => {

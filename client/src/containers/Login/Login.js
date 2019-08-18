@@ -7,12 +7,16 @@ class Login extends Component {
     const subtitleStyle = {
       marginTop: '5%'
     }
+
+    const titleStyle = {
+      marginBottom: '7%'
+    }
     return (
       <div className="hero is-medium">
         <div className="hero-body">
           <div className="columns is-centered">
             <div className="column is-3">
-              <h1 className="title is-1 has-text-black has-text-centered" id="title-card">
+              <h1 className="title is-1 has-text-black has-text-centered" id="title-card" style={titleStyle}>
                 Pawful
               </h1>
               <LoginForm />

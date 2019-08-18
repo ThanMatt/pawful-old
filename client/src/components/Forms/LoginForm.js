@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import axios from '../../axios-user';
 import Alert from '../UI/Alert';
+import * as actions from '../../store/actions/index';
+import { connect } from 'react-redux';
 
 class LoginForm extends Component {
   state = {
     email: '',
     password: '',
-    dialog: ''
+    dialog: false
   }
+
 
   changeHandler = (event) => {
     const { value, name } = event.target;
@@ -18,32 +20,23 @@ class LoginForm extends Component {
     })
   }
 
+
   submitHandler = (event) => {
     event.preventDefault();
     const { email, password } = this.state;
+    const { onAuth } = this.props;
+    onAuth(email, password)
 
-    axios.post('/login', {
-      email,
-      password
-    }).then((response) => {
-      this.setState({
-        dialog: response.data.message
-      })
-    }).catch((err) => console.log(err))
-
-    setTimeout(() => {
-      this.setState({
-        dialog: ''
-      })
-    }, 3000)
   }
+
   render() {
+    const { error } = this.props;
     return (
       <form onSubmit={this.submitHandler}>
         {
-          this.state.dialog ?
+          error ?
             <Alert status="danger">
-              {this.state.dialog}
+              {error}
             </Alert>
             : null
         }
@@ -105,4 +98,15 @@ class LoginForm extends Component {
   }
 }
 
-export default LoginForm;
+const mapStateToProps = (state) => {
+  return {
+    error: state.auth.error 
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onAuth: (email, password) => dispatch(actions.auth(email, password))
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
