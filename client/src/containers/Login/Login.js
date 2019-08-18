@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import LoginForm from '../../components/Forms/LoginForm';
-
+import {connect} from 'react-redux';
 class Login extends Component {
+
+  componentDidUpdate() {
+    const {token} = this.props;
+    if (token) {
+      this.props.history.push('/');
+    }
+  }
   render() {
     const subtitleStyle = {
       marginTop: '5%'
@@ -32,4 +39,10 @@ class Login extends Component {
   }
 }
 
-export default Login;
+const mapStateToProps = (state) => {
+  return {
+    token: state.auth.token !== null
+  }
+}
+
+export default connect(mapStateToProps)(Login);

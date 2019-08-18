@@ -11,6 +11,13 @@ class LoginForm extends Component {
     dialog: false
   }
 
+  componentDidUpdate() {
+    const { token } = this.props;
+
+    if (token) {
+      this.props.history.push('/');
+    }
+  }
 
   changeHandler = (event) => {
     const { value, name } = event.target;
@@ -30,9 +37,10 @@ class LoginForm extends Component {
   }
 
   render() {
-    const { error } = this.props;
+    console.log(this.props);
+    const { error, loading } = this.props;
     return (
-      <form onSubmit={this.submitHandler}>
+      <form onSubmit={loading ? null : this.submitHandler}>
         {
           error ?
             <Alert status="danger">
@@ -90,7 +98,7 @@ class LoginForm extends Component {
         </div>
 
         <div className="field">
-          <button className="button has-text-black has-text-weight-bold is-fullwidth is-medium is-info is-rounded">Log In</button>
+          <button className={'button has-text-black has-text-weight-bold is-fullwidth is-medium is-info is-rounded ' + (loading ? 'is-loading' : null)}>Log In</button>
         </div>
 
       </form>
@@ -100,7 +108,9 @@ class LoginForm extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    error: state.auth.error 
+    error: state.auth.error,
+    loading: state.auth.loading,
+    token: state.auth.token !== null
   }
 }
 

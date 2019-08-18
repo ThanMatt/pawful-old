@@ -30,6 +30,7 @@ export const authSuccess = (response) => {
 
 export const auth = (email, password) => {
   return dispatch => {
+    dispatch(authStart());
     axios.post('/login', {
       email,
       password

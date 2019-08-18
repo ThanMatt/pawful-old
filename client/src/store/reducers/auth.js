@@ -4,14 +4,14 @@ import { updateObject } from '../utility';
 const initialState = {
   email: '',
   username: '',
-  token: '',
-  isLoading: false,
+  token: null,
+  loading: false,
   error: null,
 }
 
 const authFail = (state, action) => {
   return updateObject(state, {
-    isLoading: false,
+    loading: false,
     error: action.payload,
   })
 }
@@ -22,14 +22,14 @@ const authSuccess = (state, action) => {
     email,
     username,
     token,
-    isLoading: false,
+    loading: false,
     error: null,
   })
 }
 
 const authStart = (state, action) => {
   return updateObject(state, {
-    isLoading: true
+    loading: true
   })
 }
 
