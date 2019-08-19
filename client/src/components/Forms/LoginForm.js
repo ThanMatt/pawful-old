@@ -37,7 +37,6 @@ class LoginForm extends Component {
   }
 
   render() {
-    console.log(this.props);
     const { error, loading } = this.props;
     return (
       <form onSubmit={loading ? null : this.submitHandler}>

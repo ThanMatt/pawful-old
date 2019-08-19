@@ -12,5 +12,5 @@
 # production
 /client/build
 
-/server/.env
+.env
 /client/src/axios-user.js

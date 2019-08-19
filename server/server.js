@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const morgan = require('morgan');
 const helmet = require('helmet');
 
-require('dotenv').config();
+require('dotenv').config({path: '../.env'});
 require('./config/passport');
 const app = express();
 const port = process.env.PORT || 4000;

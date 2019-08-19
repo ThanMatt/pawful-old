@@ -4,12 +4,21 @@ const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const sgMail = require('@sendgrid/mail');
+const Pusher = require('pusher');
 
 require('dotenv').config();
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
+const pusher = new Pusher({
+  appId: process.env.PUSHER_APP_ID,
+  key: process.env.PUSHER_APP_KEY,
+  secret: process.env.PUSHER_APP_SECRET,
+  cluster: process.env.PUSHER_APP_CLUSTER,
+  useTLS: process.env.PUSHER_APP_ENCRYPTED
+})
+
 router.get('/', (req, res) => {
-  User.find({})
+  User.find({}).select('username')
     .then((users) => {
       res.json(users)
     })
@@ -33,7 +42,7 @@ router.post('/register', async (req, res) => {
       password: hashedPassword,
       animal,
       birthday
-    }).save().then(() => {
+    }).save().then((user) => {
       msg = {
         to: email,
         from: 'no-reply@gmail.com',
@@ -46,6 +55,8 @@ router.post('/register', async (req, res) => {
       res.status(200).json({
         message: 'Registration Successful!'
       })
+
+      pusher.trigger('user', 'user-joined', user)
     }).catch((err) => {
       console.log(err)
       res.status(500).json({
