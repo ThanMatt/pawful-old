@@ -11,6 +11,7 @@ const checkIfUsernameExists = require('../functions/checkIfUsernameExists');
 const checkIfEmailExists = require('../functions/checkIfEmailExists');
 
 require('dotenv').config();
+const baseURL = process.env.BASE_URL;
 
 const pusher = new Pusher({
   appId: process.env.PUSHER_APP_ID,
@@ -91,7 +92,7 @@ router.post('/register', async (req, res) => {
 })
 
 router.post('/login', (req, res, next) => {
-  passport.authenticate('login', (err, user, info) => {
+  passport.authenticate('login', { session: false }, (err, user, info) => {
     if (err) {
       console.log(err);
       return res.status(500).json({ message: 'There was an error' })
@@ -137,7 +138,6 @@ router.get('/verification', (req, res) => {
         })
 
       } else {
-        console.log(email, verifyToken);
         res.send('Nothing')
       }
     }).catch((err) => {

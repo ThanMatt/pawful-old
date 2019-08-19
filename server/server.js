@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const morgan = require('morgan');
 const helmet = require('helmet');
 
-require('dotenv').config({path: '../.env'});
+require('dotenv').config({ path: '../.env' });
 require('./config/passport');
 const app = express();
 const port = process.env.PORT || 4000;
@@ -16,11 +16,14 @@ app.use(morgan('combined'));
 app.use(helmet());
 
 const uri = process.env.ATLAS_URI; //!! Create a .env file for this
-mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true });
+mongoose.connect(uri, {
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useFindAndModify: true
+});
 
 mongoose.connection.once('open', () => {
-  readyStates = ['Disconnected', 'Connected', 'Connecting', 'Disconnecting'];
-  console.log(`MongoDB Status: ${readyStates[mongoose.connection.readyState]}`);
+  console.log('MongoDB connected successfully');
 })
 
 const usersRoute = require('./routes/users');
