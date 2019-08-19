@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import axios from '../../axios-user';
-import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import * as actions from '../../store/actions/index';
 
 class RegisterForm extends Component {
   state = {
@@ -25,19 +25,18 @@ class RegisterForm extends Component {
       animal
     } = this.state
 
-    const birthday = month + '/' + day + '/' + year;
+    const { onAuth } = this.props;
 
-    axios.post('/register', {
+    const birthday = month + '/' + day + '/' + year;
+    const userData = {
       username,
       email,
       password,
-      animal,
-      birthday
-    }).then(() => {
-      return (
-        <Redirect to="/login" />
-      )
-    }).catch((err) => console.log(err))
+      birthday,
+      animal
+    }
+
+    onAuth(userData, true);
   }
 
   changeHandler = (event) => {
@@ -152,4 +151,10 @@ class RegisterForm extends Component {
   }
 }
 
-export default RegisterForm;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onAuth: (userData, isSignUp) => dispatch(actions.auth(userData, isSignUp))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(RegisterForm);

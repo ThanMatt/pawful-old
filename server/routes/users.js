@@ -6,6 +6,9 @@ const jwt = require('jsonwebtoken');
 const sgMail = require('@sendgrid/mail');
 const Pusher = require('pusher');
 
+const checkIfUsernameExists = require('../functions/checkIfUsernameExists');
+const checkIfEmailExists = require('../functions/checkIfEmailExists');
+
 require('dotenv').config();
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
@@ -34,8 +37,22 @@ router.post('/register', async (req, res) => {
   const saltRounds = 10
 
   try {
+
+    if (await checkIfUsernameExists(username)) {
+      return res.status(400).json({
+        message: 'The username has already been taken'
+      })
+    }
+
+    if (await checkIfEmailExists(email)) {
+      return res.status(400).json({
+        message: 'The email has already been taken'
+      })
+    }
+
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
+    User.findOne({})
     new User({
       username,
       email,

@@ -7,7 +7,8 @@ const userSchema = new Schema({
   email: String,
   password: String,
   animal: String,
-  birthday: String
+  birthday: String,
+  isVerified: Boolean
 })
 
 const User = mongoose.model('user', userSchema);

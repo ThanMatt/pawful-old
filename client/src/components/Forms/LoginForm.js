@@ -32,7 +32,13 @@ class LoginForm extends Component {
     event.preventDefault();
     const { email, password } = this.state;
     const { onAuth } = this.props;
-    onAuth(email, password)
+
+    const userData = {
+      email,
+      password
+    }
+
+    onAuth(userData, false)
 
   }
 

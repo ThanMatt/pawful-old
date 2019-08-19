@@ -16,7 +16,7 @@ export const authFail = (error) => {
 }
 
 export const authSuccess = (response) => {
-  const {email, username, animal, idToken} = response.userData
+  const { email, username, animal, idToken } = response.userData
   return {
     type: actionTypes.AUTH_SUCCESS,
     payload: {
@@ -34,16 +34,23 @@ export const authLogout = () => {
   }
 }
 
-export const auth = (email, password) => {
+export const auth = (userData, isSignUp) => {
   return dispatch => {
     dispatch(authStart());
-    axios.post('/login', {
-      email,
-      password
-    }).then((response) => {
-      dispatch(authSuccess(response.data))
-    }).catch((err) => {
-      dispatch(authFail(err))
-    })
+    if (isSignUp) {
+      axios.post('/register', userData)
+        .then((response) => {
+          dispatch(authSuccess(response.data))
+        }).catch((err) => {
+          dispatch(authFail(err))
+        })
+    } else {
+      axios.post('/login', userData)
+        .then((response) => {
+          dispatch(authSuccess(response.data))
+        }).catch((err) => {
+          dispatch(authFail(err))
+        })
+    }
   }
 }
