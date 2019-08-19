@@ -28,6 +28,12 @@ export const authSuccess = (response) => {
   }
 }
 
+export const authErrorTimeout = () => {
+  return {
+    type:actionTypes.AUTH_ERROR_TIMEOUT
+  }
+}
+
 export const authLogout = () => {
   return {
     type: actionTypes.AUTH_LOGOUT

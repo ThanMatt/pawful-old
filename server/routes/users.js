@@ -1,16 +1,16 @@
 const router = require('express').Router();
 const User = require('../models/user-model');
+const Verification = require('../models/verification-model');
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
-const sgMail = require('@sendgrid/mail');
 const Pusher = require('pusher');
-
+const crypto = require('crypto-random-string');
+const sendVerificationEmail = require('../functions/sendVerificationEmail')
 const checkIfUsernameExists = require('../functions/checkIfUsernameExists');
 const checkIfEmailExists = require('../functions/checkIfEmailExists');
 
 require('dotenv').config();
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 const pusher = new Pusher({
   appId: process.env.PUSHER_APP_ID,
@@ -52,26 +52,27 @@ router.post('/register', async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-    User.findOne({})
     new User({
       username,
       email,
       password: hashedPassword,
       animal,
-      birthday
+      birthday,
+      isVerified: false
     }).save().then((user) => {
-      msg = {
-        to: email,
-        from: 'no-reply@gmail.com',
-        subject: `You've registered on Pawful`,
-        text: 'testing testin',
-        html: '<strong>This is a test message</strong>'
-      };
-      sgMail.send(msg);
 
       res.status(200).json({
         message: 'Registration Successful!'
       })
+
+      verifyToken = crypto({ length: 20, type: 'url-safe' })
+
+      new Verification({
+        email,
+        verifyToken
+      }).save().then()
+
+      sendVerificationEmail(user, verifyToken)
 
       pusher.trigger('user', 'user-joined', user)
     }).catch((err) => {
@@ -116,6 +117,32 @@ router.post('/login', (req, res, next) => {
     }
     res.json({ userData })
   })(req, res, next)
+})
+
+router.get('/verification', (req, res) => {
+  const verifyToken = req.query.token;
+  const email = req.query.email;
+
+  Verification.findOneAndRemove({ email, verifyToken })
+    .then((currentUser) => {
+      if (currentUser) {
+
+        User.findOneAndUpdate({ email }, {
+          isVerified: true
+        }).then(() => {
+          res.send('Verified. You may close this window')
+
+        }).catch((err) => {
+          console.log(err)
+        })
+
+      } else {
+        console.log(email, verifyToken);
+        res.send('Nothing')
+      }
+    }).catch((err) => {
+      console.log(err);
+    })
 })
 
 module.exports = router;

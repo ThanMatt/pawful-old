@@ -16,6 +16,12 @@ const authFail = (state, action) => {
   })
 }
 
+const authErrorTimeout = (state, action) => {
+  return updateObject(state, {
+    error: null
+  })
+}
+
 const authLogout = (state, action) => {
   return updateObject(state, {
     email: '',
@@ -47,6 +53,7 @@ const reducer = (state = initialState, action) => {
     case actionTypes.AUTH_SUCCESS: return authSuccess(state, action);
     case actionTypes.AUTH_FAIL: return authFail(state, action);
     case actionTypes.AUTH_LOGOUT: return authLogout(state, action);
+    case actionTypes.AUTH_ERROR_TIMEOUT: return authErrorTimeout(state, action);
     default: return state
   }
 }

@@ -1,6 +1,7 @@
 export {
   auth,
-  authLogout
+  authLogout,
+  authErrorTimeout
 } from './auth';
 
 export {

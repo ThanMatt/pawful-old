@@ -5,6 +5,7 @@ import * as actions from '../../store/actions/index';
 import { connect } from 'react-redux';
 
 class LoginForm extends Component {
+  
   state = {
     email: '',
     password: '',
@@ -12,10 +13,14 @@ class LoginForm extends Component {
   }
 
   componentDidUpdate() {
-    const { token } = this.props;
+    const { token, error, onAuthErrorTimeout } = this.props;
 
     if (token) {
       this.props.history.push('/');
+    }
+
+    if (error) {
+      setTimeout(() => onAuthErrorTimeout(), 3000)
     }
   }
 
@@ -121,7 +126,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onAuth: (email, password) => dispatch(actions.auth(email, password))
+    onAuth: (email, password) => dispatch(actions.auth(email, password)),
+    onAuthErrorTimeout: () => dispatch(actions.authErrorTimeout())
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
