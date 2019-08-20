@@ -9,6 +9,10 @@ require('./config/passport');
 const app = express();
 const port = process.env.PORT || 4000;
 
+morgan.token('date', () => {
+  return new Date().toString()
+});
+
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -19,7 +23,7 @@ const uri = process.env.ATLAS_URI; //!! Create a .env file for this
 mongoose.connect(uri, {
   useNewUrlParser: true,
   useCreateIndex: true,
-  useFindAndModify: true
+  useFindAndModify: false
 });
 
 mongoose.connection.once('open', () => {
@@ -27,8 +31,10 @@ mongoose.connection.once('open', () => {
 })
 
 const usersRoute = require('./routes/users');
+const postsRoute = require('./routes/posts');
 
 app.use('/users', usersRoute);
+app.use('/posts', postsRoute);
 
 app.listen(port, () => {
   console.log(`Listening to port ${port}!`)
