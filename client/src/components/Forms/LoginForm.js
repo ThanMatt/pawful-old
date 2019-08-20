@@ -53,7 +53,7 @@ class LoginForm extends Component {
       <form onSubmit={loading ? null : this.submitHandler}>
         {
           error ?
-            <Alert status="danger">
+            <Alert status="danger" size="7">
               {error}
             </Alert>
             : null
@@ -120,7 +120,7 @@ const mapStateToProps = (state) => {
   return {
     error: state.auth.error,
     loading: state.auth.loading,
-    token: state.auth.token !== null
+    token: state.auth.token !== null,
   }
 }
 

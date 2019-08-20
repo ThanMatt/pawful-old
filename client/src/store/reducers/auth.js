@@ -6,6 +6,7 @@ const initialState = {
   username: '',
   token: null,
   loading: false,
+  isVerified: false,
   error: null,
 }
 
@@ -31,9 +32,10 @@ const authLogout = (state, action) => {
 }
 
 const authSuccess = (state, action) => {
-  const { email, username, token } = action.payload
+  const { email, username, token, isVerified } = action.payload
   return updateObject(state, {
     email,
+    isVerified,
     username,
     token,
     loading: false,

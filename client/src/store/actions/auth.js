@@ -16,13 +16,14 @@ export const authFail = (error) => {
 }
 
 export const authSuccess = (response) => {
-  const { email, username, animal, idToken } = response.userData
+  const { email, username, animal, idToken, isVerified } = response.userData
   return {
     type: actionTypes.AUTH_SUCCESS,
     payload: {
       email,
       username,
       animal,
+      isVerified,
       token: idToken
     }
   }

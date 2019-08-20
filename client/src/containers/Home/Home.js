@@ -3,16 +3,27 @@ import HeroLanding from '../../components/UI/Hero/HeroLanding/HeroLanding';
 import { connect } from 'react-redux';
 import Navbar from '../../components/UI/Navbar';
 import Feed from '../../components/Feed/Feed';
+import Alert from '../../components/UI/Alert';
 import { withRouter } from 'react-router-dom';
 class Home extends Component {
   render() {
+    const { isVerified } = this.props;
     return (
       <>
         {
           this.props.token ?
             <>
               <Navbar />
-              <Feed />
+              <div className="container">
+                {
+                  isVerified ? null
+                    :
+                    <Alert status="primary" size="4">
+                      Please Verify your email
+                    </Alert>
+                }
+              </div>
+
             </>
             : <HeroLanding />
         }
@@ -24,7 +35,8 @@ class Home extends Component {
 const mapStateToProps = (state) => {
   return {
     token: state.auth.token,
-    username: state.auth.username
+    username: state.auth.username,
+    isVerified: state.auth.isVerified
   }
 }
 

@@ -114,6 +114,7 @@ router.post('/login', (req, res, next) => {
       email: user.email,
       username: user.username,
       animal: user.animal,
+      isVerified: user.isVerified,
       idToken
     }
     res.json({ userData })
