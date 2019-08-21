@@ -14,3 +14,4 @@
 
 .env
 /client/src/axios-user.js
+/client/src/axios-post.js
