@@ -3,6 +3,7 @@ import { updateObject } from '../utility';
 
 const initialState = {
   email: '',
+  animal: '',
   username: '',
   token: null,
   loading: false,
@@ -32,13 +33,14 @@ const authLogout = (state, action) => {
 }
 
 const authSuccess = (state, action) => {
-  const { email, username, token, isVerified } = action.payload
+  const { email, username, token, isVerified, animal } = action.payload
   return updateObject(state, {
     email,
-    isVerified,
+    animal,
     username,
     token,
     loading: false,
+    isVerified,
     error: null,
   })
 }

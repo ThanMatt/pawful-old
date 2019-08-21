@@ -7,3 +7,7 @@ export {
 export {
   getUsers
 } from './user'
+
+export {
+  fetchPosts
+} from './post'

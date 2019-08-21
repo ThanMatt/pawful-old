@@ -1,8 +1,11 @@
 const router = require('express').Router();
 const Post = require('../models/post-model');
 const verifyAnimal = require('../functions/verifyAnimal');
+const checkAuth = require('../functions/checkAuth');
 
-router.get('/dog', (req, res) => {
+
+router.get('/dog', checkAuth, (req, res) => {
+
   Post.find({ animal: 'dog' })
     .then((posts) => {
       return res.status(200).json({
@@ -16,7 +19,7 @@ router.get('/dog', (req, res) => {
     })
 })
 
-router.get('/cat', (req, res) => {
+router.get('/cat', checkAuth, (req, res) => {
   Post.find({ animal: 'cat' })
     .then((posts) => {
       return res.status(200).json({
@@ -30,7 +33,7 @@ router.get('/cat', (req, res) => {
     })
 })
 
-router.post('/new', (req, res) => {
+router.post('/new', checkAuth, (req, res) => {
   const animal = req.body.animal;
   const content = req.body.content;
   const username = req.body.username;

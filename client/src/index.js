@@ -7,10 +7,12 @@ import thunk from 'redux-thunk';
 import { BrowserRouter } from 'react-router-dom';
 import authReducer from './store/reducers/auth';
 import userReducer from './store/reducers/user';
+import postReducer from './store/reducers/post';
 
 const rootReducer = combineReducers({
   auth: authReducer,
-  user: userReducer
+  user: userReducer,
+  post: postReducer
 })
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
