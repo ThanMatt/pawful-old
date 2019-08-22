@@ -16,13 +16,7 @@ class Home extends Component {
             <>
               <Navbar />
               <div className="container">
-                {
-                  isVerified ? null
-                    :
-                    <Alert status="primary" size="4">
-                      Please Verify your email
-                    </Alert>
-                }
+                <br />
                 <Feed />
               </div>
 

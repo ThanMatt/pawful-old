@@ -1,5 +1,5 @@
 import * as actionTypes from './actions';
-import axios from '../../axios-post'
+import axios from '../../axios-posts'
 
 export const fetchStart = () => {
   return {
@@ -24,11 +24,11 @@ export const fetchSuccess = (response) => {
   }
 }
 
-export const fetchPosts = (animal, token) => {
+export const fetchPosts = (token) => {
   return dispatch => {
     dispatch(fetchStart());
 
-    axios.get(`/${animal}`, {
+    axios.get(`/`, {
       headers: {
         authorization: 'Bearer ' + token
       }

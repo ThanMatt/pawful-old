@@ -4,23 +4,9 @@ const verifyAnimal = require('../functions/verifyAnimal');
 const checkAuth = require('../functions/checkAuth');
 
 
-router.get('/dog', checkAuth, (req, res) => {
-
-  Post.find({ animal: 'dog' })
-    .then((posts) => {
-      return res.status(200).json({
-        data: posts
-      })
-    }).catch((err) => {
-      console.log(err);
-      return res.status(500).json({
-        message: 'There was an error'
-      })
-    })
-})
-
-router.get('/cat', checkAuth, (req, res) => {
-  Post.find({ animal: 'cat' })
+router.get('/', checkAuth, (req, res) => {
+  const { animal } = req.userData.body
+  Post.find({ animal })
     .then((posts) => {
       return res.status(200).json({
         data: posts
@@ -34,9 +20,8 @@ router.get('/cat', checkAuth, (req, res) => {
 })
 
 router.post('/new', checkAuth, (req, res) => {
-  const animal = req.body.animal;
+  const { animal, username } = req.userData.body;
   const content = req.body.content;
-  const username = req.body.username;
   new Post({
     username,
     animal,

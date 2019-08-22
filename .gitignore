@@ -13,5 +13,6 @@
 /client/build
 
 .env
-/client/src/axios-user.js
-/client/src/axios-post.js
+/client/src/axios-users.js
+/client/src/axios-posts.js
+/client/src/axios-auth.js

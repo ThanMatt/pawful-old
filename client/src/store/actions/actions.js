@@ -15,3 +15,8 @@ export const FETCH_POSTS = 'FETCH_POSTS';
 export const FETCH_START = 'FETCH_START';
 export const FETCH_FAIL = 'FETCH_ERROR';
 export const FETCH_SUCCESS = 'FETCH_SUCCESS';
+
+//!! User info
+export const FETCH_PROFILE = 'FETCH_PROFILE';
+export const FETCH_PROFILE_SUCCESS = 'FETCH_PROFILE_SUCCESS';
+export const FETCH_PROFILE_FAIL = 'FETCH_PROFILE_FAIL';

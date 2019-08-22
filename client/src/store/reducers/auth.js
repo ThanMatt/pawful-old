@@ -2,12 +2,9 @@ import * as actionTypes from '../actions/actions';
 import { updateObject } from '../utility';
 
 const initialState = {
-  email: '',
-  animal: '',
-  username: '',
   token: null,
+  expiresIn: null,
   loading: false,
-  isVerified: false,
   error: null,
 }
 
@@ -33,14 +30,11 @@ const authLogout = (state, action) => {
 }
 
 const authSuccess = (state, action) => {
-  const { email, username, token, isVerified, animal } = action.payload
+  const { token, expiresIn } = action.payload
   return updateObject(state, {
-    email,
-    animal,
-    username,
     token,
+    expiresIn,
     loading: false,
-    isVerified,
     error: null,
   })
 }

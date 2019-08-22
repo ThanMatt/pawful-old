@@ -3,27 +3,27 @@ import { updateObject } from '../utility';
 
 
 const initialState = {
-  usersJoined: [],
-  loading: false
+  loading: false,
+  username: '',
+  error: ''
 }
 
-const usersJoined = (state, action) => {
+const fetchProfile = (state, action) => {
   return updateObject(state, {
-    loading: false,
-    usersJoined: action.payload
+    username: action.payload
   })
 }
 
-const usersStart = (state, action) => {
+const fetchProfileFail = (state, action) => {
   return updateObject(state, {
-    loading: true
+    error: action.payload
   })
 }
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.USERS_START: return usersStart(state, action)
-    case actionTypes.USERS_JOINED: return usersJoined(state, action)
+    case actionTypes.FETCH_PROFILE_SUCCESS: return fetchProfile(state, action)
+    case actionTypes.FETCH_PROFILE_FAIL: return fetchProfileFail(state, action)
     default: return state
   }
 }

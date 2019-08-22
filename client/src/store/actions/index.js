@@ -5,7 +5,7 @@ export {
 } from './auth';
 
 export {
-  getUsers
+  fetchProfile
 } from './user'
 
 export {

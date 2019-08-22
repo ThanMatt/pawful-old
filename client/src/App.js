@@ -9,6 +9,8 @@ import './assets/sass/bulma-styles.scss';
 import './assets/css/styles.css';
 
 class App extends Component {
+  componentDidMount() {
+  }
   render() {
     return (
       <div className="App">

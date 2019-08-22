@@ -2,16 +2,35 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
 
+import ProfileInfo from '../Feed/ProfileInfo/ProfileInfo';
+import NewPost from '../Feed/NewPost/NewPost';
+
 class Feed extends Component {
 
-  componentDidMount() { 
-    const {animal, onFetch, token} = this.props;
+  componentDidMount() {
+    const { onFetchPosts, token } = this.props;
 
-    onFetch(animal, token);
+    onFetchPosts(token);
   }
   render() {
+    const { username } = this.props;
+    const container = {
+      width: '80%',
+      margin: 'auto'
+    }
     return (
-      <div className="container">
+      <div style={container}>
+        <div className="columns">
+          <div className="column">
+            <ProfileInfo username={username} />
+          </div>
+          <div className="column is-6">
+            <NewPost />
+          </div>
+          <div className="column">
+            <ProfileInfo />
+          </div>
+        </div>
       </div>
     )
   }
@@ -19,14 +38,13 @@ class Feed extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    animal: state.auth.animal,
     token: state.auth.token,
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onFetch: (animal, token) => dispatch(actions.fetchPosts(animal, token))
+    onFetchPosts: (token) => dispatch(actions.fetchPosts(token))
   }
 }
 

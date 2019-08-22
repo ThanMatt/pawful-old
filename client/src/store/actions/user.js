@@ -1,35 +1,31 @@
 import * as actionTypes from './actions';
-import axios from '../../axios-user';
+import axios from '../../axios-users';
 
-export const usersJoined = (users) => {
-  return {
-    type: actionTypes.USERS_JOINED,
-    payload: users
-  }
-}
-
-export const usersStart = () => {
-  return {
-    type: actionTypes.USERS_START
-  }
-}
-
-export const usersFail = (err) => {
-  return {
-    type: actionTypes.USERS_FAIL,
-    payload: err
-  }
-}
-
-export const getUsers = () => {
+export const fetchProfile = (token) => {
   return dispatch => {
-    dispatch(usersStart());
-    axios.get('/')
-      .then((response) => {
-        dispatch(usersJoined(response.data))
-      }).catch((err) => {
-        console.log(err)
-        dispatch(usersFail(err))
-      })
+    axios.get('/', {
+      headers: {
+        authorization: 'Bearer ' + token
+      }
+    }).then((response) => {
+      dispatch(fetchProfileSuccess(response.data))
+    }).catch((err) => {
+      dispatch(fetchProfileFail(err))
+    })
+  }
+}
+
+export const fetchProfileSuccess = (response) => {
+  const { username } = response;
+  return {
+    type: actionTypes.FETCH_PROFILE_SUCCESS,
+    payload: username
+  }
+}
+
+export const fetchProfileFail = (err) => {
+  return {
+    type: actionTypes.FETCH_PROFILE_FAIL,
+    payload: err
   }
 }

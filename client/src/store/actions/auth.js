@@ -1,5 +1,5 @@
 import * as actionTypes from './actions';
-import axios from '../../axios-user';
+import axios from '../../axios-auth';
 
 export const authStart = () => {
   return {
@@ -16,26 +16,39 @@ export const authFail = (error) => {
 }
 
 export const authSuccess = (response) => {
-  const { email, username, animal, idToken, isVerified } = response.userData
+  const { idToken, expiresIn } = response.userData;
+  localStorage.setItem('token', idToken);
+  localStorage.setItem('expiresIn', expiresIn);
   return {
     type: actionTypes.AUTH_SUCCESS,
     payload: {
-      email,
-      username,
-      animal,
-      isVerified,
-      token: idToken
+      token: idToken,
+      expiresIn,
     }
   }
 }
 
 export const authErrorTimeout = () => {
   return {
-    type:actionTypes.AUTH_ERROR_TIMEOUT
+    type: actionTypes.AUTH_ERROR_TIMEOUT
+  }
+}
+
+const authCheckState = () => {
+  return dispatch => {
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      dispatch(authLogout())
+    }
+
+
   }
 }
 
 export const authLogout = () => {
+  localStorage.removeItem('token');
+  localStorage.removeItem('expiresIn');
   return {
     type: actionTypes.AUTH_LOGOUT
   }
