@@ -8,10 +8,6 @@ class Navbar extends Component {
     this.props.onFetchProfile(this.props.token);
   }
   render() {
-    const container = {
-      width: '80%',
-      margin: 'auto'
-    }
     const { username } = this.props;
     return (
       <nav className="navbar is-info">
@@ -22,7 +18,7 @@ class Navbar extends Component {
           <div className="navbar-end">
             <div className="navbar-item has-dropdown is-hoverable">
               <Link className="navbar-item">
-                Hello, {username}
+                {username}
               </Link>
               <div className="navbar-dropdown">
                 <Link to="/logout" className="navbar-item">

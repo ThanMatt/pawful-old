@@ -3,7 +3,6 @@ import { updateObject } from '../utility';
 
 const initialState = {
   token: null,
-  expiresIn: null,
   loading: false,
   error: null,
 }
@@ -30,10 +29,9 @@ const authLogout = (state, action) => {
 }
 
 const authSuccess = (state, action) => {
-  const { token, expiresIn } = action.payload
+  const { token } = action.payload
   return updateObject(state, {
     token,
-    expiresIn,
     loading: false,
     error: null,
   })

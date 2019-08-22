@@ -16,14 +16,11 @@ export const authFail = (error) => {
 }
 
 export const authSuccess = (response) => {
-  const { idToken, expiresIn } = response.userData;
-  localStorage.setItem('token', idToken);
-  localStorage.setItem('expiresIn', expiresIn);
+  const { idToken } = response.userData;
   return {
     type: actionTypes.AUTH_SUCCESS,
     payload: {
       token: idToken,
-      expiresIn,
     }
   }
 }
@@ -34,15 +31,40 @@ export const authErrorTimeout = () => {
   }
 }
 
-const authCheckState = () => {
+
+export const authCheckTimeout = (expiresIn) => {
+  return dispatch => {
+    setTimeout(() => {
+      dispatch(authLogout())
+    }, expiresIn * 1000)
+  }
+}
+
+export const authCheckState = () => {
   return dispatch => {
     const token = localStorage.getItem('token');
 
     if (!token) {
       dispatch(authLogout())
+    } else {
+
+      const expireTime = new Date(localStorage.getItem('expiresIn'));
+      const currentTime = new Date();
+
+      if (currentTime >= expireTime) {
+        dispatch(authLogout())
+      } else {
+
+        const expiresIn = (expireTime.getTime() - currentTime.getTime()) / 1000
+        const response = {
+          userData: {
+            idToken: token,
+          }
+        }
+        dispatch(authCheckTimeout(expiresIn))
+        dispatch(authSuccess(response))
+      }
     }
-
-
   }
 }
 
@@ -60,13 +82,22 @@ export const auth = (userData, isSignUp) => {
     if (isSignUp) {
       axios.post('/register', userData)
         .then((response) => {
+
           dispatch(authSuccess(response.data))
+
         }).catch((err) => {
           dispatch(authFail(err))
         })
     } else {
       axios.post('/login', userData)
         .then((response) => {
+          const { expiresIn, idToken } = response.data.userData;
+          const expirationTime = new Date(new Date().getTime() + (expiresIn * 1000))
+
+          localStorage.setItem('token', idToken);
+          localStorage.setItem('expiresIn', expirationTime);
+
+          console.log(expirationTime.getTime());
           dispatch(authSuccess(response.data))
         }).catch((err) => {
           dispatch(authFail(err))

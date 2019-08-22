@@ -1,7 +1,8 @@
 export {
   auth,
   authLogout,
-  authErrorTimeout
+  authErrorTimeout,
+  authCheckState
 } from './auth';
 
 export {

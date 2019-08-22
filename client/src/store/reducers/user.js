@@ -3,7 +3,6 @@ import { updateObject } from '../utility';
 
 
 const initialState = {
-  loading: false,
   username: '',
   error: ''
 }

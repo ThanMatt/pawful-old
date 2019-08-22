@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
+import { connect } from 'react-redux';
 import Home from './containers/Home/Home';
 import Login from './containers/Auth/Login';
 import Register from './containers/Auth/Register';
 import Logout from './containers/Auth/Logout';
+import * as actions from './store/actions/index';
 
 import './assets/sass/bulma-styles.scss';
 import './assets/css/styles.css';
 
 class App extends Component {
   componentDidMount() {
+    this.props.onTryAuth();
   }
   render() {
     return (
@@ -23,4 +26,10 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onTryAuth: () => dispatch(actions.authCheckState())
+  }
+}
+
+export default connect(null, mapDispatchToProps)(App);
