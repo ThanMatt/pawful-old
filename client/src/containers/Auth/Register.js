@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import RegisterForm from '../../components/Forms/RegisterForm';
+import RegisterForm from '../../components/Forms/RegisterForm/RegisterForm';
+import { connect } from 'react-redux';
 
 class Register extends Component {
+  componentDidUpdate() {
+    const { token } = this.props;
+
+    if (token) {
+      this.props.history.push('/');
+    }
+  }
   render() {
     const titleStyle = {
       marginBottom: '12%',
-    }
-    const subtitleStyle = {
-      marginTop: '5%'
     }
     return (
       <div className="hero">
@@ -19,12 +23,6 @@ class Register extends Component {
                 Greetings, Hooman
               </h1>
               <RegisterForm />
-              <div className="field">
-                <label htmlFor="" className="label has-text-black has-text-weight-normal has-text-centered" style={subtitleStyle}>Have an account?</label>
-                <div className="control">
-                  <Link to="/login" className="button is-white is-inverted is-outlined is-rounded is-fullwidth is-medium">Log In</Link>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -34,4 +32,10 @@ class Register extends Component {
 
 }
 
-export default Register;
+const mapStateToProps = (state) => {
+  return {
+    token: state.auth.token !== null
+  }
+}
+
+export default connect(mapStateToProps)(Register);

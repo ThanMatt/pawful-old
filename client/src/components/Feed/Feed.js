@@ -2,18 +2,21 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
 
-import ProfileInfo from '../Feed/ProfileInfo/ProfileInfo';
-import NewPost from '../Feed/NewPost/NewPost';
+import ProfileInfo from './ProfileInfo/ProfileInfo';
+import NewPost from './NewPost/NewPost';
+import VerifyEmail from './VerifyEmail/verifyEmail'
 
 class Feed extends Component {
 
   componentDidMount() {
-    const { onFetchPosts, token } = this.props;
+    const { onFetchPosts, onUserVerify, token } = this.props;
 
     onFetchPosts(token);
+    onUserVerify(token)
+
   }
   render() {
-    const { username } = this.props;
+    const { username, isVerified } = this.props;
     const container = {
       width: '80%',
       margin: 'auto'
@@ -28,7 +31,10 @@ class Feed extends Component {
             <NewPost />
           </div>
           <div className="column">
-            <ProfileInfo />
+            {
+              isVerified ? null : <VerifyEmail />
+            }
+            <ProfileInfo username={username} />
           </div>
         </div>
       </div>
@@ -39,12 +45,15 @@ class Feed extends Component {
 const mapStateToProps = (state) => {
   return {
     token: state.auth.token,
+    username: state.user.username,
+    isVerified: state.user.isVerified,
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onFetchPosts: (token) => dispatch(actions.fetchPosts(token))
+    onFetchPosts: (token) => dispatch(actions.fetchPosts(token)),
+    onUserVerify: (token) => dispatch(actions.fetchUserVerify(token))
   }
 }
 

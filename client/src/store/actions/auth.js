@@ -82,6 +82,11 @@ export const auth = (userData, isSignUp) => {
     if (isSignUp) {
       axios.post('/register', userData)
         .then((response) => {
+          const { expiresIn, idToken } = response.data.userData;
+          const expirationTime = new Date(new Date().getTime() + (expiresIn * 1000))
+
+          localStorage.setItem('token', idToken);
+          localStorage.setItem('expiresIn', expirationTime);
 
           dispatch(authSuccess(response.data))
 

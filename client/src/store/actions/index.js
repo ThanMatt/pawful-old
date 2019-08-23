@@ -6,7 +6,8 @@ export {
 } from './auth';
 
 export {
-  fetchProfile
+  fetchProfile,
+  fetchUserVerify
 } from './user'
 
 export {

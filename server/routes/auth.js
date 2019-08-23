@@ -28,7 +28,7 @@ router.get('/', (req, res) => {
     })
 })
 
-router.post('/register', async (req, res) => {
+router.post('/register', async (req, res, next) => {
   const username = req.body.username;
   const email = req.body.email;
   const password = req.body.password;
@@ -62,10 +62,6 @@ router.post('/register', async (req, res) => {
       isVerified: false
     }).save().then((user) => {
 
-      res.status(200).json({
-        message: 'Registration Successful!'
-      })
-
       verifyToken = crypto({ length: 20, type: 'url-safe' })
 
       new Verification({
@@ -74,6 +70,25 @@ router.post('/register', async (req, res) => {
       }).save().then()
 
       sendVerificationEmail(user, verifyToken)
+
+      const body = {
+        _id: user._id,
+        email: user.email,
+        username: user.username,
+        animal: user.animal,
+      }
+
+      const idToken = jwt.sign({ body }, process.env.JWT_KEY, { expiresIn: '1h' });
+
+      const userData = {
+        idToken,
+        expiresIn: 3600
+      }
+
+      res.status(200).json({
+        message: 'You have successfully registered',
+        userData
+      })
 
       pusher.trigger('user', 'user-joined', user)
     }).catch((err) => {
@@ -108,7 +123,6 @@ router.post('/login', (req, res, next) => {
       email: user.email,
       username: user.username,
       animal: user.animal,
-      isVerified: user.isVerified
     }
 
     const idToken = jwt.sign({ body }, process.env.JWT_KEY, { expiresIn: '1h' });
