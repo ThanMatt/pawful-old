@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Alert from '../UI/Alert';
+import Input from '../UI/input';
 import * as actions from '../../store/actions/index';
 import { connect } from 'react-redux';
-
 class LoginForm extends Component {
-  
+
   state = {
     email: '',
     password: '',
@@ -42,7 +42,6 @@ class LoginForm extends Component {
       email,
       password
     }
-
     onAuth(userData, false)
 
   }
@@ -58,29 +57,26 @@ class LoginForm extends Component {
             </Alert>
             : null
         }
-        <div className="field">
-          <label className="label has-text-black has-text-weight-bold">Username or Email Address</label>
-          <div className="control">
-            <input
-              type="text"
-              className="input is-rounded"
-              onChange={this.changeHandler}
-              name="email"
-            />
-          </div>
-        </div>
+        <Input
+          label="Username or Email Address"
+          name="email"
+          type="input"
+          config={{ type: 'text' }}
+          className="input is-rounded"
+          onChange={this.changeHandler}
+          value={this.state.email}
+        />
 
-        <div className="field">
-          <label className="label has-text-black has-text-weight-bold">Password</label>
-          <div className="control">
-            <input
-              type="password"
-              className="input is-rounded"
-              onChange={this.changeHandler}
-              name="password"
-            />
-          </div>
-        </div>
+        <Input
+          label="Password"
+          name="password"
+          type="input"
+          config={{ type: 'password' }}
+          className="input is-rounded"
+          onChange={this.changeHandler}
+          value={this.state.password}
+        />
+
         <div className="field">
           <div className="control">
 

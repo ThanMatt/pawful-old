@@ -4,6 +4,10 @@ const contentPost = (props) => {
   const styles = {
     marginTop: '2%'
   }
+
+  const lineBreak = {
+    whiteSpace: 'pre-wrap'
+  }
   return (
     <div className="card" style={styles}>
       <div className="card-content">
@@ -17,7 +21,7 @@ const contentPost = (props) => {
 
           <div className="media-content">
             <div className="content">
-              <p>
+              <p style={lineBreak}>
                 <strong>{props.username}</strong>
                 <br />
                 {props.content}

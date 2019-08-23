@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/index';
 import Login from './login';
+import Input from '../../UI/input';
 
 class RegisterForm extends Component {
   state = {
@@ -37,7 +38,6 @@ class RegisterForm extends Component {
       animal
     }
 
-    console.log(this.state);
     onAuth(userData, true);
   }
 
@@ -55,110 +55,101 @@ class RegisterForm extends Component {
       marginRight: '2%'
     }
 
+    const options = ['Dog', 'Cat'];
+
     return (
       <>
         <form onSubmit={this.submitHandler}>
-          <div className="field">
-            <label className="label has-text-black has-text-weight-bold">Username</label>
-            <div className="control">
-              <input
-                type="text"
-                className="input is-rounded"
-                onChange={this.changeHandler}
-                name="username"
-                style={fieldStyle}
-              />
-            </div>
-          </div>
 
-          <div className="field">
-            <label className="label has-text-black has-text-weight-bold">Email Address</label>
-            <div className="control">
-              <input
-                type="text"
-                className="input is-rounded"
-                onChange={this.changeHandler}
-                name="email"
-                style={fieldStyle}
-              />
-            </div>
-          </div>
+          <Input
+            className="input is-rounded"
+            label="Username"
+            name="username"
+            onChange={this.changeHandler}
+            value={this.state.username}
+            config={{ type: 'text', style: fieldStyle }}
+          />
 
-          <div className="field">
-            <label className="label has-text-black has-text-weight-bold">Password</label>
-            <div className="control">
-              <input
-                type="password"
-                className="input is-rounded"
-                onChange={this.changeHandler}
-                name="password"
-                style={fieldStyle}
-              />
-            </div>
-          </div>
+          <Input
+            className="input is-rounded"
+            label="Email Address"
+            name="email"
+            onChange={this.changeHandler}
+            value={this.state.email}
+            config={{ type: 'email', style: fieldStyle }}
+          />
+
+          <Input
+            className="input is-rounded"
+            label="Password"
+            name="password"
+            onChange={this.changeHandler}
+            value={this.state.password}
+            config={{ type: 'password', style: fieldStyle }}
+          />
 
           <div className="field">
             <label className="label has-text-black has-text-weight-bold">Birthday</label>
             <div className="field is-grouped">
-              <div className="field" style={fieldStyle}>
-                <label htmlFor="" className="label has-text-black has-text-weight-normal is-size-7">Month</label>
-                <div className="control">
-                  <input
-                    type="number"
-                    className="input is-rounded"
-                    min="1"
-                    max="12"
-                    onChange={this.changeHandler}
-                    name="month"
-                  />
-                </div>
 
-              </div>
-              <div className="field" style={fieldStyle}>
-                <label htmlFor="" className="label has-text-black has-text-weight-normal is-size-7">Day</label>
-                <div className="control">
-                  <input
-                    type="number"
-                    className="input is-rounded"
-                    min="1"
-                    max="31"
-                    onChange={this.changeHandler}
-                    name="day"
-                  />
-                </div>
+              <Input
+                className="input is-rounded"
+                labelClassName="has-text-weight-normal is-size-7"
+                label="Month"
+                onChange={this.changeHandler}
+                name="month"
+                value={this.state.month}
+                divConfig={{ style: fieldStyle }}
+                config={{
+                  type: 'number',
+                  min: '1',
+                  max: '12',
+                }}
+              />
 
-              </div>
-              <div className="field" style={fieldStyle}>
-                <label htmlFor="" className="label has-text-black has-text-weight-normal is-size-7">Year</label>
-                <div className="control">
-                  <input
-                    type="number"
-                    className="input is-rounded"
-                    min="1900"
-                    max="2019"
-                    onChange={this.changeHandler}
-                    name="year"
-                  />
-                </div>
-              </div>
+              <Input
+                className="input is-rounded"
+                labelClassName="has-text-weight-normal is-size-7"
+                label="Day"
+                onChange={this.changeHandler}
+                name="day"
+                value={this.state.day}
+                divConfig={{ style: fieldStyle }}
+                config={{
+                  type: 'number',
+                  min: '1',
+                  max: '31',
+                }}
+              />
+
+              <Input
+                className="input is-rounded"
+                labelClassName="has-text-weight-normal is-size-7"
+                label="Year"
+                onChange={this.changeHandler}
+                name="year"
+                value={this.state.year}
+                divConfig={{ style: fieldStyle }}
+                config={{
+                  type: 'number',
+                  min: '1900',
+                  max: '2019',
+                }}
+              />
+
             </div>
-            <div className="field">
-              <label className="label has-text-black has-text-weight-bold">Animal</label>
-              <div className="control">
-                <div className="select is-rounded">
-                  <select
-                    name="animal"
-                    onChange={this.changeHandler}
-                  >
-                    <option>Dog</option>
-                    <option>Cat</option>
-                  </select>
-                </div>
-              </div>
-            </div>
+
+            <Input
+              className="select is-rounded"
+              label="Animal"
+              onChange={this.changeHandler}
+              type="select"
+              name="animal"
+              value={this.state.animal}
+              options={options}
+            />
 
           </div>
-
           <div className="field">
             <button className="button has-text-black has-text-weight-bold is-fullwidth is-medium is-info is-rounded">Register</button>
           </div>
