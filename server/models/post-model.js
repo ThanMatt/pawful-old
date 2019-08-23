@@ -6,7 +6,6 @@ const postSchema = new Schema({
   username: String,
   animal: String,
   date: Date,
-  time: String,
   content: String,
   comments: [] 
 })

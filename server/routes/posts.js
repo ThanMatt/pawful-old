@@ -22,16 +22,17 @@ router.get('/', checkAuth, (req, res) => {
 router.post('/new', checkAuth, (req, res) => {
   const { animal, username } = req.userData.body;
   const content = req.body.content;
+  const date = req.body.date;
   new Post({
     username,
     animal,
-    date: new Date().toString(),
-    time: new Date().getTime().toString(),
+    date,
     content,
   }).save()
-    .then(() => {
+    .then((response) => {
       return res.status(200).json({
-        message: 'Post successfully'
+        message: 'Post successfully',
+        content: response
       })
     }).catch((err) => {
       console.log(err)

@@ -30,6 +30,7 @@ export const fetchProfileFail = (err) => {
   }
 }
 
+//!! Get user email verification status
 export const fetchUserVerify = (token) => {
   return dispatch => {
     axios.get('/verify', {

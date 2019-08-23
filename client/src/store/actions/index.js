@@ -11,5 +11,6 @@ export {
 } from './user'
 
 export {
-  fetchPosts
+  fetchPosts,
+  postContent
 } from './post'

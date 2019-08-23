@@ -39,3 +39,42 @@ export const fetchPosts = (token) => {
     })
   }
 }
+
+export const postSuccess = (response) => {
+  const {message, content} = response.data;
+  return {
+    type: actionTypes.POST_SUCCESS,
+    payload: {
+      message,
+      content
+    }
+  }
+}
+
+export const postStart = () => {
+  return {
+    type: actionTypes.POST_START
+  }
+}
+
+export const postFail = (err) => {
+  return {
+    type: actionTypes.POST_FAIL,
+    payload: err
+  }
+}
+
+export const postContent = (postData, token) => {
+  return dispatch => {
+    dispatch(postStart())
+    axios.post('/new', postData, {
+      headers: {
+        authorization: 'Bearer ' + token
+      }
+    }).then((response) => {
+      dispatch(postSuccess(response))
+    }).catch((err) => {
+      dispatch(fetchFail(err))
+    })
+  }
+}
