@@ -6,16 +6,18 @@ const initialState = {
   username: '',
   animal: '',
   birthday: '',
+  icon: '',
   error: '',
   isVerified: true,
   loading: false
 }
 
 const fetchProfileSuccess = (state, action) => {
-  const { animal, username } = action.payload;
+  const { animal, username, icon } = action.payload;
   return updateObject(state, {
     username,
     animal,
+    icon,
     loading: false
   })
 }

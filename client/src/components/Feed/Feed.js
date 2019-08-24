@@ -16,7 +16,7 @@ class Feed extends Component {
   }
 
   render() {
-    const { username, isVerified, token, posts, loading, animal, userLoading } = this.props;
+    const { username, isVerified, token, posts, loading, animal, userLoading, icon } = this.props;
     const container = {
       width: '90%',
       margin: 'auto'
@@ -28,16 +28,21 @@ class Feed extends Component {
             :
             <div className="columns">
               <div className="column">
-                <ProfileInfo username={username} animal={animal} />
+                <ProfileInfo
+                  username={username}
+                  animal={animal}
+                  icon={icon}
+                />
               </div>
               <div className="column is-7">
-                <NewPost token={token} updatePosts={this.updatePosts} animal={animal} />
+                <NewPost token={token} animal={animal} icon={icon} />
                 {
                   loading ? 'wait lang'
                     :
                     posts.map((post, index) => {
                       return (
                         <ContentPost
+                          icon={post.icon}
                           username={post.username}
                           content={post.content}
                           key={index}
@@ -64,7 +69,8 @@ const mapStateToProps = (state) => {
   return {
     posts: state.post.posts,
     loading: state.post.loading,
-    userLoading: state.user.loading
+    userLoading: state.user.loading,
+    icon: state.user.icon
   }
 }
 

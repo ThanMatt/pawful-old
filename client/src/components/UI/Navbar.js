@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Helmet } from 'react-helmet';
 import * as actions from '../../store/actions/index';
 
 class Navbar extends Component {
@@ -10,25 +11,30 @@ class Navbar extends Component {
   render() {
     const { username } = this.props;
     return (
-      <nav className="navbar is-info">
-        <div className="navbar-brand">
-          <label className="title is-5 has-text-black navbar-item">Pawful</label>
-        </div>
-        <div className="navbar-menu">
-          <div className="navbar-end">
-            <div className="navbar-item has-dropdown is-hoverable">
-              <Link className="navbar-item">
-                {username}
-              </Link>
-              <div className="navbar-dropdown">
-                <Link to="/logout" className="navbar-item">
-                  Log Out
+      <>
+        <Helmet>
+          <body className="has-navbar-fixed-top" />
+        </Helmet>
+        <nav className="navbar is-info is-fixed-top">
+          <div className="navbar-brand">
+            <label className="title is-5 has-text-black navbar-item">Pawful</label>
+          </div>
+          <div className="navbar-menu">
+            <div className="navbar-end">
+              <div className="navbar-item has-dropdown is-hoverable">
+                <Link className="navbar-item">
+                  {username}
                 </Link>
+                <div className="navbar-dropdown">
+                  <Link to="/logout" className="navbar-item">
+                    Log Out
+                </Link>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </nav>
+        </nav>
+      </>
     )
   }
 }

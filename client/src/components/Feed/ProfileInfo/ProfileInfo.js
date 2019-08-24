@@ -5,7 +5,7 @@ const profileInfo = (props) => {
     <div className="card">
       <div className="card-content">
         <figure className="image is-96x96">
-          <img className="is-rounded" src="https://bulma.io/images/placeholders/96x96.png" alt="it u" />
+          <img className="is-rounded" src={'/uploads/' + props.icon} alt="it u" />
         </figure>
         <label htmlFor="" className="label">{props.username}</label>
         <div className="level">

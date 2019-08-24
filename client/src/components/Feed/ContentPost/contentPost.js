@@ -2,7 +2,7 @@ import React from 'react';
 
 const contentPost = (props) => {
   const styles = {
-    marginTop: '2%'
+    marginTop: '2%',
   }
 
   const lineBreak = {
@@ -15,7 +15,7 @@ const contentPost = (props) => {
 
           <figure className="media-left">
             <p className="image is-64x64">
-              <img className="is-rounded" src="https://bulma.io/images/placeholders/128x128.png" alt="it u" />
+              <img className="is-rounded" src={'/uploads/' + props.icon} alt="it u" />
             </p>
           </figure>
 

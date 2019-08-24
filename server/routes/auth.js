@@ -53,6 +53,7 @@ router.post('/register', async (req, res, next) => {
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
     new User({
+      icon: animal + '.png',
       username,
       email,
       password: hashedPassword,
@@ -75,6 +76,7 @@ router.post('/register', async (req, res, next) => {
         email: user.email,
         username: user.username,
         animal: user.animal,
+        icon: user.icon
       }
 
       const idToken = jwt.sign({ body }, process.env.JWT_KEY, { expiresIn: '1h' });
@@ -122,6 +124,7 @@ router.post('/login', (req, res, next) => {
       email: user.email,
       username: user.username,
       animal: user.animal,
+      icon: user.icon
     }
 
     const idToken = jwt.sign({ body }, process.env.JWT_KEY, { expiresIn: '1h' });

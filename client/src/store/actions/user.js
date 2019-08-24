@@ -24,12 +24,13 @@ export const fetchProfileStart = () => {
 }
 
 export const fetchProfileSuccess = (response) => {
-  const { username, animal } = response;
+  const { username, animal, icon } = response;
   return {
     type: actionTypes.FETCH_PROFILE_SUCCESS,
     payload: {
       username,
-      animal
+      animal,
+      icon
     },
   }
 }

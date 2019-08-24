@@ -40,7 +40,7 @@ class NewPost extends Component {
           <div className="card-content">
             <div className="media">
               <p className="image is-64x64">
-                <img className="is-rounded" src="https://bulma.io/images/placeholders/128x128.png" alt="it u" />
+                <img className="is-rounded" src={'/uploads/' + this.props.icon} alt="it u" />
               </p>
               <div className="media-content">
                 <textarea

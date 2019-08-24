@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const postSchema = new Schema({
+  icon: String,
   username: String,
   animal: String,
   date: Date,

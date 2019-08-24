@@ -20,10 +20,11 @@ router.get('/', checkAuth, (req, res) => {
 })
 
 router.post('/new', checkAuth, (req, res) => {
-  const { animal, username } = req.userData.body;
+  const { animal, username, icon } = req.userData.body;
   const content = req.body.content;
   const date = req.body.date;
   new Post({
+    icon,
     username,
     animal,
     date,
