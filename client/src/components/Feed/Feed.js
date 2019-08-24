@@ -16,42 +16,45 @@ class Feed extends Component {
   }
 
   render() {
-    const { username, isVerified, token, posts, loading, animal } = this.props;
-    console.log()
+    const { username, isVerified, token, posts, loading, animal, userLoading } = this.props;
     const container = {
       width: '90%',
       margin: 'auto'
     }
     return (
       <div style={container}>
-        <div className="columns">
-          <div className="column">
-            <ProfileInfo username={username} animal={animal} />
-          </div>
-          <div className="column is-7">
-            <NewPost token={token} updatePosts={this.updatePosts} animal={animal} />
-            {
-              loading ? 'wait lang'
-                :
-                posts.map((post, index) => {
-                  return (
-                    <ContentPost
-                      username={post.username}
-                      content={post.content}
-                      key={index}
-                    />
-                  )
+        {
+          userLoading ? <p className="is-size-1 loader"></p>
+            :
+            <div className="columns">
+              <div className="column">
+                <ProfileInfo username={username} animal={animal} />
+              </div>
+              <div className="column is-7">
+                <NewPost token={token} updatePosts={this.updatePosts} animal={animal} />
+                {
+                  loading ? 'wait lang'
+                    :
+                    posts.map((post, index) => {
+                      return (
+                        <ContentPost
+                          username={post.username}
+                          content={post.content}
+                          key={index}
+                        />
+                      )
 
-                })
-            }
-          </div>
-          <div className="column">
-            {
-              isVerified ? null : <VerifyEmail />
-            }
-            <ProfileInfo username={username} />
-          </div>
-        </div>
+                    })
+                }
+              </div>
+              <div className="column">
+                {
+                  isVerified ? null : <VerifyEmail />
+                }
+                <ProfileInfo username={username} />
+              </div>
+            </div>
+        }
       </div>
     )
   }
@@ -61,6 +64,7 @@ const mapStateToProps = (state) => {
   return {
     posts: state.post.posts,
     loading: state.post.loading,
+    userLoading: state.user.loading
   }
 }
 

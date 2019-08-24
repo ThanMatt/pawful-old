@@ -3,6 +3,7 @@ import axios from '../../axios-users';
 
 export const fetchProfile = (token) => {
   return dispatch => {
+    dispatch(fetchProfileStart())
     axios.get('/', {
       headers: {
         authorization: 'Bearer ' + token
@@ -13,6 +14,12 @@ export const fetchProfile = (token) => {
     }).catch((err) => {
       dispatch(fetchProfileFail(err))
     })
+  }
+}
+
+export const fetchProfileStart = () => {
+  return {
+    type: actionTypes.FETCH_PROFILE_START
   }
 }
 
