@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import LinkButton from '../../linkButton';
 
 const HeroLanding = () => {
   const titleStyle = {
@@ -23,19 +23,17 @@ const HeroLanding = () => {
             <div className="landing container is-fluid">
               <p className="title has-text-black is-1 has-text-centered" id="title-card" style={titleStyle}>Pawful</p>
 
-              <div className="field">
-                <div className="control">
-                  <Link to="/register" className="button is-medium is-info is-rounded has-text-weight-bold has-text-black is-fullwidth">
-                    Register
-                  </Link>
-                </div>
-              </div>
+              <LinkButton
+                className="has-text-black is-info is-fullwidth is-medium"
+                label="Register"
+                path="/register"
+              />
 
-              <div className="field">
-                <div className="control">
-                  <Link to="/login" className="button is-white is-inverted is-outlined is-rounded is-fullwidth is-medium">Log In</Link>
-                </div>
-              </div>
+              <LinkButton
+                className="is-white is-outlined is-inverted is-fullwidth is-medium"
+                label="Log In"
+                path="/login"
+              />
 
             </div>
           </div>

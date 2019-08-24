@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/index';
+import MediaLevel from './mediaLevel';
 
 class NewPost extends Component {
   state = {
@@ -17,47 +18,42 @@ class NewPost extends Component {
       date
     }
     onPostContent(postData, token)
+
+    this.setState({
+      content: ''
+    })
   }
   render() {
     const { loading } = this.props;
+    const { content } = this.state;
     const textareaStyle = {
       border: 'none',
       outline: 'none',
       resize: 'none',
+      boxShadow: 'none'
     }
     return (
       <form onSubmit={this.submitHandler}>
         <div className="card">
           <div className="card-content">
-            <div className="field">
-              <div className="control">
-                <div className="media">
-                  <figure className="media-left">
-                    <p className="image is-64x64">
-                      <img className="is-rounded" src="https://bulma.io/images/placeholders/128x128.png" alt="it u" />
-                    </p>
-                  </figure>
-                  <div className="media-content">
-                    <div className="content">
-                      <textarea
-                        cols="30"
-                        rows="2"
-                        className="textarea"
-                        placeholder="Say something.. I mean, bark bark!"
-                        style={textareaStyle}
-                        name="content"
-                        onChange={(event) => this.setState({ content: event.target.value })}
-                      />
-                    </div>
-                  </div>
-                </div>
+            <div className="media">
+              <p className="image is-64x64">
+                <img className="is-rounded" src="https://bulma.io/images/placeholders/128x128.png" alt="it u" />
+              </p>
+              <div className="media-content">
+                <textarea
+                  cols="30"
+                  rows="2"
+                  className="textarea"
+                  placeholder="Say something.. I mean, bark bark!"
+                  style={textareaStyle}
+                  name="content"
+                  onChange={(event) => this.setState({ content: event.target.value })}
+                  value={content}
+                />
               </div>
             </div>
-            <div className="field is-grouped is-grouped-right">
-              <div className="control">
-                <button className={'button is-fullwidth has-text-black has-text-weight-bold is-rounded is-info ' + (loading ? 'is-loading' : null)}>Post</button>
-              </div>
-            </div>
+            <MediaLevel loading={loading} />
           </div>
         </div>
       </form>

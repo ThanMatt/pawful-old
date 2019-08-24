@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import Alert from '../UI/Alert';
-import Input from '../UI/input';
-import * as actions from '../../store/actions/index';
+import Alert from '../../UI/Alert';
+import Input from '../../UI/input';
+import LowerLevel from './lowerLevel';
+import * as actions from '../../../store/actions/index';
 import { connect } from 'react-redux';
+
 class LoginForm extends Component {
 
   state = {
@@ -42,8 +43,8 @@ class LoginForm extends Component {
       email,
       password
     }
+    
     onAuth(userData, false)
-
   }
 
   render() {
@@ -77,36 +78,11 @@ class LoginForm extends Component {
           value={this.state.password}
         />
 
-        <div className="field">
-          <div className="control">
-
-            <div className="level is-mobile">
-
-              <div className="level-left">
-                <div className="level-item">
-                  <label className="checkbox has-text-black">
-                    <input type="checkbox" />
-                    Remember Me
-                          </label>
-                </div>
-              </div>
-
-              <div className="level-right">
-                <div className="level-item">
-                  <div className="buttons is-right">
-                    <Link className="button is-text is-right is-size-7">Forgot password?</Link>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </div>
+        <LowerLevel />
 
         <div className="field">
           <button className={'button has-text-black has-text-weight-bold is-fullwidth is-medium is-info is-rounded ' + (loading ? 'is-loading' : null)}>Log In</button>
         </div>
-
       </form>
     )
   }
@@ -126,4 +102,5 @@ const mapDispatchToProps = (dispatch) => {
     onAuthErrorTimeout: () => dispatch(actions.authErrorTimeout())
   }
 }
+
 export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);

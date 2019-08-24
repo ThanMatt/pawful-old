@@ -11,7 +11,6 @@ const checkIfUsernameExists = require('../functions/checkIfUsernameExists');
 const checkIfEmailExists = require('../functions/checkIfEmailExists');
 
 require('dotenv').config();
-const baseURL = process.env.BASE_URL;
 
 const pusher = new Pusher({
   appId: process.env.PUSHER_APP_ID,

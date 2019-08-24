@@ -10,11 +10,9 @@ import ContentPost from './ContentPost/contentPost';
 class Feed extends Component {
 
   componentDidMount() {
-    const { onFetchPosts, onUserVerify, token } = this.props;
+    const { onFetchPosts, token } = this.props;
 
     onFetchPosts(token);
-    onUserVerify(token)
-
   }
 
   render() {
@@ -60,19 +58,14 @@ class Feed extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    token: state.auth.token,
-    username: state.user.username,
-    isVerified: state.user.isVerified,
     posts: state.post.posts,
     loading: state.post.loading
-
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     onFetchPosts: (token) => dispatch(actions.fetchPosts(token)),
-    onUserVerify: (token) => dispatch(actions.fetchUserVerify(token))
   }
 }
 
