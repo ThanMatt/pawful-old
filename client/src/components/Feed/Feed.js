@@ -16,7 +16,8 @@ class Feed extends Component {
   }
 
   render() {
-    const { username, isVerified, token, posts, loading } = this.props;
+    const { username, isVerified, token, posts, loading, animal } = this.props;
+    console.log()
     const container = {
       width: '90%',
       margin: 'auto'
@@ -25,10 +26,10 @@ class Feed extends Component {
       <div style={container}>
         <div className="columns">
           <div className="column">
-            <ProfileInfo username={username} />
+            <ProfileInfo username={username} animal={animal} />
           </div>
           <div className="column is-7">
-            <NewPost token={token} updatePosts={this.updatePosts} />
+            <NewPost token={token} updatePosts={this.updatePosts} animal={animal} />
             {
               loading ? 'wait lang'
                 :
@@ -59,7 +60,7 @@ class Feed extends Component {
 const mapStateToProps = (state) => {
   return {
     posts: state.post.posts,
-    loading: state.post.loading
+    loading: state.post.loading,
   }
 }
 

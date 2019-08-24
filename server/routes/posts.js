@@ -6,7 +6,7 @@ const checkAuth = require('../functions/checkAuth');
 
 router.get('/', checkAuth, (req, res) => {
   const { animal } = req.userData.body
-  Post.find({ animal })
+  Post.find({ animal }).sort({ date: -1 })
     .then((posts) => {
       return res.status(200).json({
         data: posts

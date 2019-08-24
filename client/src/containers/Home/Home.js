@@ -14,7 +14,7 @@ class Home extends Component {
     }
   }
   render() {
-    const { token, username, isVerified } = this.props;
+    const { token, username, isVerified, animal } = this.props;
     return (
       <>
         {
@@ -25,7 +25,8 @@ class Home extends Component {
                 <br />
                 <Feed
                   token={token}
-                  userrname={username}
+                  username={username}
+                  animal={animal}
                   isVerified={isVerified}
                 />
               </div>
@@ -41,14 +42,15 @@ class Home extends Component {
 const mapStateToProps = (state) => {
   return {
     token: state.auth.token,
-    username: state.auth.username,
+    username: state.user.username,
+    animal: state.user.animal,
     isVerified: state.user.isVerified,
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onUserVerify: (token) => dispatch(actions.fetchUserVerify(token))
+    onUserVerify: (token) => dispatch(actions.fetchUserVerify(token)),
   }
 }
 

@@ -8,6 +8,7 @@ export const fetchProfile = (token) => {
         authorization: 'Bearer ' + token
       }
     }).then((response) => {
+      console.log(response);
       dispatch(fetchProfileSuccess(response.data))
     }).catch((err) => {
       dispatch(fetchProfileFail(err))
@@ -16,10 +17,13 @@ export const fetchProfile = (token) => {
 }
 
 export const fetchProfileSuccess = (response) => {
-  const { username } = response;
+  const { username, animal } = response;
   return {
     type: actionTypes.FETCH_PROFILE_SUCCESS,
-    payload: username,
+    payload: {
+      username,
+      animal
+    },
   }
 }
 

@@ -24,8 +24,10 @@ class NewPost extends Component {
     })
   }
   render() {
-    const { loading } = this.props;
+    const { loading, animal } = this.props;
     const { content } = this.state;
+    console.log(animal);
+    const message = animal === 'Dog' ? 'bark bark!' : 'meow meow!'
     const textareaStyle = {
       border: 'none',
       outline: 'none',
@@ -45,7 +47,7 @@ class NewPost extends Component {
                   cols="30"
                   rows="2"
                   className="textarea"
-                  placeholder="Say something.. I mean, bark bark!"
+                  placeholder={'Say something.. I mean, ' + message}
                   style={textareaStyle}
                   name="content"
                   onChange={(event) => this.setState({ content: event.target.value })}
@@ -53,7 +55,7 @@ class NewPost extends Component {
                 />
               </div>
             </div>
-            <MediaLevel loading={loading} />
+            <MediaLevel loading={loading} value={content} />
           </div>
         </div>
       </form>

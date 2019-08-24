@@ -4,13 +4,17 @@ import { updateObject } from '../utility';
 
 const initialState = {
   username: '',
+  animal: '',
+  birthday: '',
   error: '',
   isVerified: true
 }
 
 const fetchProfileSuccess = (state, action) => {
+  const { animal, username } = action.payload;
   return updateObject(state, {
-    username: action.payload
+    username,
+    animal
   })
 }
 
@@ -46,7 +50,7 @@ const reducer = (state = initialState, action) => {
 
     case actionTypes.FETCH_USER_VERIFY_FAIL:
       return fetchUserVerifyFail(state, action)
-      
+
     default: return state
   }
 }

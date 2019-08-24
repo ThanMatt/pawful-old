@@ -36,11 +36,11 @@ const postStart = (state, action) => {
   })
 }
 const postSuccess = (state, action) => {
-  const {message, content} = action.payload
+  const { message, content } = action.payload
   return updateObject(state, {
     postLoading: false,
     message,
-    posts: state.posts.concat(content)
+    posts: [content].concat(state.posts)
   })
 }
 
