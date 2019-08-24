@@ -18,7 +18,7 @@ class Feed extends Component {
   render() {
     const { username, isVerified, token, posts, loading, animal, userLoading, icon } = this.props;
     const container = {
-      width: '90%',
+      width: '95%',
       margin: 'auto'
     }
     return (
@@ -34,7 +34,7 @@ class Feed extends Component {
                   icon={icon}
                 />
               </div>
-              <div className="column is-7">
+              <div className="column is-three-fifths">
                 <NewPost token={token} animal={animal} icon={icon} />
                 {
                   loading ? 'wait lang'
@@ -42,9 +42,7 @@ class Feed extends Component {
                     posts.map((post, index) => {
                       return (
                         <ContentPost
-                          icon={post.icon}
-                          username={post.username}
-                          content={post.content}
+                          data={post}
                           key={index}
                         />
                       )

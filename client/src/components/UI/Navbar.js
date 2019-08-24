@@ -9,7 +9,14 @@ class Navbar extends Component {
     this.props.onFetchProfile(this.props.token);
   }
   render() {
-    const { username } = this.props;
+    const { username, animal } = this.props;
+    const brandMargin = {
+      marginLeft: '100%'
+    }
+
+    const menuMargin = {
+      marginRight: '85px'
+    }
     return (
       <>
         <Helmet>
@@ -17,12 +24,18 @@ class Navbar extends Component {
         </Helmet>
         <nav className="navbar is-info is-fixed-top">
           <div className="navbar-brand">
-            <label className="title is-5 has-text-black navbar-item">Pawful</label>
+            <label className="title is-5 has-text-black navbar-item" style={brandMargin}>Pawful</label>
+
           </div>
-          <div className="navbar-menu">
+          <div className="navbar-menu" style={menuMargin}>
             <div className="navbar-end">
+
+              <Link className="navbar-item has-text-black">
+                Home
+              </Link>
+
               <div className="navbar-item has-dropdown is-hoverable">
-                <Link className="navbar-item">
+                <Link className="navbar-item has-text-black">
                   {username}
                 </Link>
                 <div className="navbar-dropdown">
@@ -31,6 +44,25 @@ class Navbar extends Component {
                 </Link>
                 </div>
               </div>
+
+              <Link className="navbar-item">
+                <span className="icon has-text-black">
+                  <i className="fas fa-paw"></i>
+                </span>
+              </Link>
+
+              <Link className="navbar-item">
+                <span className="icon has-text-black">
+                  <i className={'fas fa-' + animal.toLowerCase()}></i>
+                </span>
+              </Link>
+
+              <Link className="navbar-item">
+                <span className="icon has-text-black">
+                  <i className="fas fa-bell"></i>
+                </span>
+              </Link>
+
             </div>
           </div>
         </nav>
@@ -42,6 +74,7 @@ class Navbar extends Component {
 const mapStateToProps = (state) => {
   return {
     username: state.user.username,
+    animal: state.user.animal,
     token: state.auth.token
   }
 }

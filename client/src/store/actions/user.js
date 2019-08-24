@@ -9,7 +9,6 @@ export const fetchProfile = (token) => {
         authorization: 'Bearer ' + token
       }
     }).then((response) => {
-      console.log(response);
       dispatch(fetchProfileSuccess(response.data))
     }).catch((err) => {
       dispatch(fetchProfileFail(err))

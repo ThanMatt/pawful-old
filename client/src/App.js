@@ -9,6 +9,7 @@ import * as actions from './store/actions/index';
 
 import './assets/sass/bulma-styles.scss';
 import './assets/css/styles.css';
+import '@fortawesome/fontawesome-free/css/all.css'
 
 class App extends Component {
   componentDidMount() {

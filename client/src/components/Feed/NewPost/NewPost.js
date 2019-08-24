@@ -2,20 +2,20 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/index';
 import MediaLevel from './mediaLevel';
-
+import Textarea from 'react-textarea-autosize';
 class NewPost extends Component {
   state = {
     content: '',
-    date: new Date()
+    date: ''
   }
 
   submitHandler = (event) => {
     event.preventDefault();
-    const { content, date } = this.state;
+    const { content } = this.state;
     const { onPostContent, token } = this.props;
     const postData = {
       content,
-      date
+      date: new Date()
     }
     onPostContent(postData, token)
 
@@ -26,7 +26,6 @@ class NewPost extends Component {
   render() {
     const { loading, animal } = this.props;
     const { content } = this.state;
-    console.log(animal);
     const message = animal === 'Dog' ? 'bark bark!' : 'meow meow!'
     const textareaStyle = {
       border: 'none',
@@ -43,7 +42,7 @@ class NewPost extends Component {
                 <img className="is-rounded" src={'/uploads/' + this.props.icon} alt="it u" />
               </p>
               <div className="media-content">
-                <textarea
+                <Textarea
                   cols="30"
                   rows="2"
                   className="textarea"
