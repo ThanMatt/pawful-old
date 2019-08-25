@@ -26,7 +26,7 @@ class Navbar extends Component {
     const { username, animal } = this.props;
     const { isActive } = this.state;
     const brandMargin = {
-      marginLeft: '9%'
+      marginLeft: '8%'
     }
 
     const menuMargin = {

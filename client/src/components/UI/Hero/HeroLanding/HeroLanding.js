@@ -9,7 +9,7 @@ const HeroLanding = () => {
   return (
     <div className="columns">
 
-      <div className="column is-7">
+      <div className="column is-7" id="hero-description">
         <div className="hero is-primary is-fullheight">
           <div className="hero-body">
             <p className="title has-text-white has-text-weight-bold is-1 has-text-centered">Claw drapes unwrap toilet paper.</p>
@@ -24,13 +24,13 @@ const HeroLanding = () => {
               <p className="title has-text-black is-1 has-text-centered" id="title-card" style={titleStyle}>Pawful</p>
 
               <LinkButton
-                className="has-text-black is-info is-fullwidth is-medium"
+                className="has-text-black is-info is-fullwidth is-large"
                 label="Register"
                 path="/register"
               />
 
               <LinkButton
-                className="is-white is-outlined is-inverted is-fullwidth is-medium"
+                className="is-white is-outlined is-inverted is-fullwidth is-large"
                 label="Log In"
                 path="/login"
               />

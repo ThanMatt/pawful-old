@@ -28,7 +28,7 @@ class Feed extends Component {
           userLoading ? <p className="is-size-1 loader"></p>
             :
             <div className="columns">
-              <div className="column">
+              <div className="column" id="profile-container">
                 <ProfileInfo
                   username={username}
                   animal={animal}
@@ -51,7 +51,7 @@ class Feed extends Component {
                     })
                 }
               </div>
-              <div className="column">
+              <div className="column" id="stuff-container">
                 {
                   isVerified ? null : <VerifyEmail hide={this.closeDialog} />
                 }

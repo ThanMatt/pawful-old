@@ -20,3 +20,16 @@
   height: 50px;
 }
 
+@media only screen and (max-width: 770px) {
+  #profile-container {
+    display: none
+  }
+
+  #stuff-container {
+    display: none
+  }
+
+  #hero-description {
+    display: none
+  }
+}
