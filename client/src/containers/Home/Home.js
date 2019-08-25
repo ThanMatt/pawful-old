@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import HeroLanding from '../../components/UI/Hero/HeroLanding/HeroLanding';
 import { connect } from 'react-redux';
-import Navbar from '../../components/UI/Navbar';
+import Navbar from '../../components/UI/Navbar/Navbar';
 import Feed from '../../components/Feed/Feed';
 import { withRouter } from 'react-router-dom';
 

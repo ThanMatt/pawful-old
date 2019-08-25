@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import * as actions from '../../store/actions/index';
+import * as actions from '../../../store/actions/index';
+import Search from './Search/search'
+import NavItem from './NavItem/navItem';
 
 class Navbar extends Component {
   state = {
@@ -41,41 +43,15 @@ class Navbar extends Component {
 
           </div>
           <div className="navbar-menu">
-
             <div className="navbar-start">
-              <div className="navbar-item">
-                <input className="input is-rounded" size="50" placeholder="Search" />
-              </div>
+              <Search />
             </div>
-
             <div className="navbar-end" style={menuMargin}>
-
-              <Link className="navbar-item has-text-black">
-                Home
-              </Link>
-
-              <Link className="navbar-item has-text-black">
-                {username}
-              </Link>
-
-              <Link className="navbar-item">
-                <span className="icon has-text-black">
-                  <i className="fas fa-paw"></i>
-                </span>
-              </Link>
-
-              <Link className="navbar-item">
-                <span className="icon has-text-black">
-                  <i className={'fas fa-' + animal.toLowerCase()}></i>
-                </span>
-              </Link>
-
-              <Link className="navbar-item">
-                <span className="icon has-text-black">
-                  <i className="fas fa-bell"></i>
-                </span>
-              </Link>
-
+              <NavItem path="/" label="Home" />
+              <NavItem path="/profile" label={username} />
+              <NavItem icon="fas fa-paw" />
+              <NavItem icon={'fas fa-' + animal.toLowerCase()} />
+              <NavItem icon="fas fa-bell" />
               <div className={'navbar-item has-dropdown ' + (isActive ? 'is-active' : '')}>
 
                 <Link className="navbar-item" onClick={this.toggleDropdown}>
