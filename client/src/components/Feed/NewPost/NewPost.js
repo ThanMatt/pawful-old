@@ -44,7 +44,7 @@ class NewPost extends Component {
               <div className="media-content">
                 <Textarea
                   cols="30"
-                  rows="2"
+                  rows="1"
                   className="textarea"
                   placeholder={'Say something.. I mean, ' + message}
                   style={textareaStyle}

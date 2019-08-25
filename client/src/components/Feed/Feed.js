@@ -10,15 +10,16 @@ import ContentPost from './ContentPost/contentPost';
 class Feed extends Component {
 
   componentDidMount() {
-    const { onFetchPosts, token } = this.props;
+    const { onFetchPosts, token, onUserVerify } = this.props;
 
     onFetchPosts(token);
+    onUserVerify(token)
   }
 
   render() {
-    const { username, isVerified, token, posts, loading, animal, userLoading, icon } = this.props;
+    const { username, token, posts, loading, animal, userLoading, icon, isVerified } = this.props;
     const container = {
-      width: '95%',
+      width: '90%',
       margin: 'auto'
     }
     return (
@@ -34,7 +35,7 @@ class Feed extends Component {
                   icon={icon}
                 />
               </div>
-              <div className="column is-three-fifths">
+              <div className="column is-6">
                 <NewPost token={token} animal={animal} icon={icon} />
                 {
                   loading ? 'wait lang'
@@ -52,7 +53,7 @@ class Feed extends Component {
               </div>
               <div className="column">
                 {
-                  isVerified ? null : <VerifyEmail />
+                  isVerified ? null : <VerifyEmail hide={this.closeDialog} />
                 }
                 <ProfileInfo username={username} />
               </div>
@@ -75,6 +76,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onFetchPosts: (token) => dispatch(actions.fetchPosts(token)),
+    onUserVerify: (token) => dispatch(actions.fetchUserVerify(token)),
   }
 }
 

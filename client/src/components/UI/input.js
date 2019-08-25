@@ -29,7 +29,7 @@ const input = (props) => {
 
     default:
       inputType = <input
-        className={props.className}
+        className={'input ' + props.className}
         name={props.name}
         {...props.config}
         onChange={props.onChange}

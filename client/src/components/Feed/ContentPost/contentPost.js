@@ -28,8 +28,8 @@ const contentPost = (props) => {
 
           <div className="media-content">
             <div className="content">
-              <p style={lineBreak}>
-                <strong>{username}</strong>
+              <p className="has-text-black" style={lineBreak}>
+                <span className="has-text-weight-bold">{username}</span>
                 <br />
                 {content}
               </p>

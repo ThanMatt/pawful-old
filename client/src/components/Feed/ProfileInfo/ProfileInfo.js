@@ -5,8 +5,13 @@ const profileInfo = (props) => {
   const contentStyle = {
     marginTop: '10px'
   }
+
+  const cardSticky = {
+    position: 'sticky',
+    top: '76px',
+  }
   return (
-    <div className="card">
+    <div className="card" style={cardSticky}>
       <div className="card-content">
         <figure className="image is-96x96 container">
           <img className="is-rounded" src={'/uploads/' + props.icon} alt="it u" />
