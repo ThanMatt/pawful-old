@@ -31,6 +31,7 @@ router.post('/new', checkAuth, (req, res) => {
     content,
   }).save()
     .then((response) => {
+      console.log(response);
       return res.status(200).json({
         message: 'Post successfully',
         content: response
@@ -43,33 +44,38 @@ router.post('/new', checkAuth, (req, res) => {
     })
 })
 
-router.post('/comment/:id', async (req, res) => {
-  const animal = req.body.animal;
-  const _id = req.params.id;
-  const username = req.body.username;
+router.post('/comment', checkAuth, async (req, res) => {
+  const { animal, username, icon } = req.userData.body;
+  const _id = req.body.commentId;
   const content = req.body.content
 
   if (await verifyAnimal(animal, _id)) {
     Post.findOneAndUpdate({ _id }, {
       $push: {
         comments: {
+          icon,
           username,
           content,
+          animal,
           date: new Date().toString(),
-          time: new Date().getTime().toString()
         }
       }
-    }).then(() => {
-      return res.status(200).json({
-        message: 'Comment added successfully'
-      })
-    }).catch((err) => {
-      console.log(err)
 
-      return res.status(500).json({
-        message: 'There was an error'
+    }, {
+        new: true
+      }).then((response) => {
+        const {comments} = response;
+        return res.status(200).json({
+          message: 'Comment added successfully',
+          data: comments[comments.length - 1]
+        })
+      }).catch((err) => {
+        console.log(err)
+
+        return res.status(500).json({
+          message: 'There was an error'
+        })
       })
-    })
   } else {
     return res.status(400).json({
       message: `You're not authorized to do this`
@@ -84,6 +90,22 @@ router.get('/comment/:id', async (req, res) => {
     .then((currentPost) => {
       res.status(200).json({
         data: currentPost
+      })
+    }).catch((err) => {
+      console.log(err);
+      res.status(500).json({
+        message: 'There was an error'
+      })
+    })
+})
+
+router.get('/comment', checkAuth, (req, res) => {
+  const { animal } = req.userData.body;
+  console.log(animal);
+  Post.find({ animal }).select('comments')
+    .then((comments) => {
+      res.status(200).json({
+        data: comments
       })
     }).catch((err) => {
       console.log(err);

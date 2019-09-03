@@ -7,24 +7,13 @@ import Search from './Search/search'
 import NavItem from './NavItem/navItem';
 
 class Navbar extends Component {
-  state = {
-    isActive: false
-  }
   componentDidMount() {
     this.props.onFetchProfile(this.props.token);
   }
 
-  toggleDropdown = () => {
-    const { isActive } = this.state;
-
-    this.setState({
-      ...this.state,
-      isActive: !isActive
-    })
-  }
   render() {
-    const { username, animal } = this.props;
-    const { isActive } = this.state;
+    const { username, animal, click } = this.props;
+    const { isActive } = this.props;
     const brandMargin = {
       marginLeft: '8%'
     }
@@ -54,7 +43,7 @@ class Navbar extends Component {
               <NavItem icon="fas fa-bell" />
               <div className={'navbar-item has-dropdown ' + (isActive ? 'is-active' : '')}>
 
-                <Link className="navbar-item" onClick={this.toggleDropdown}>
+                <Link className="navbar-item" onClick={this.props.toggle}>
                   <span className="icon is-small has-text-black"><i className="fas fa-ellipsis-h"></i></span>
                 </Link>
 

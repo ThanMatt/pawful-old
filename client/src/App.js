@@ -5,6 +5,7 @@ import Home from './containers/Home/Home';
 import Login from './containers/Auth/Login';
 import Register from './containers/Auth/Register';
 import Logout from './containers/Auth/Logout';
+import Profile from './containers/Profile/Profile'
 import * as actions from './store/actions/index';
 
 import './assets/sass/bulma-styles.scss';
@@ -21,6 +22,7 @@ class App extends Component {
         <Route path="/" exact component={Home} />
         <Route path="/home" exact component={Home} />
         <Route path="/login" exact component={Login} />
+        <Route path="/profile" exact component={Profile} />
         <Route path="/register" exact component={Register} />
         <Route path="/logout" exact component={Logout} />
       </div>

@@ -6,7 +6,23 @@ import Feed from '../../components/Feed/Feed';
 import { withRouter } from 'react-router-dom';
 
 class Home extends Component {
+  state = {
+    isActive: false
+  }
 
+  handleClick = () => {
+    this.setState({
+      isActive: false
+    })
+  }
+
+  toggleDropdown = () => {
+    const { isActive } = this.state;
+
+    this.setState({
+      isActive: !isActive
+    })
+  }
   render() {
     const { token, username, isVerified, animal } = this.props;
     return (
@@ -14,8 +30,12 @@ class Home extends Component {
         {
           token ?
             <>
-              <Navbar />
-              <div className="container">
+              <Navbar
+                isActive={this.state.isActive}
+                click={this.handleClick}
+                toggle={this.toggleDropdown}
+              />
+              <div className="container" onClick={this.handleClick}>
                 <br />
                 <Feed
                   token={token}

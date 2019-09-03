@@ -13,16 +13,20 @@ class NewPost extends Component {
     event.preventDefault();
     const { content } = this.state;
     const { onPostContent, token } = this.props;
-    const postData = {
+
+    const data = {
+      commentId: false,
       content,
       date: new Date()
     }
-    onPostContent(postData, token)
+
+    onPostContent(data, token)
 
     this.setState({
       content: ''
     })
   }
+
   render() {
     const { loading, animal } = this.props;
     const { content } = this.state;
@@ -70,7 +74,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onPostContent: (postData, token) => dispatch(actions.postContent(postData, token))
+    onPostContent: (data, token) => dispatch(actions.postContent(data, token))
   }
 }
 

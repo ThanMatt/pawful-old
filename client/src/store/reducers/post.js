@@ -3,11 +3,13 @@ import { updateObject } from '../utility';
 
 const initialState = {
   posts: [],
+  comments: [],
   loading: false,
   postLoading: false,
   error: null,
   message: '',
-  post: {},
+  commentLoading: false,
+  commentError: null
 }
 
 const fetchStart = (state, action) => {
@@ -26,16 +28,16 @@ const fetchFail = (state, action) => {
 const fetchSuccess = (state, action) => {
   return updateObject(state, {
     posts: action.payload,
-    loading: false
+    loading: false,
   })
 }
 
-const postStart = (state, action) => {
+const postContentStart = (state, action) => {
   return updateObject(state, {
     postLoading: true
   })
 }
-const postSuccess = (state, action) => {
+const postContentSuccess = (state, action) => {
   const { message, content } = action.payload
   return updateObject(state, {
     postLoading: false,
@@ -44,10 +46,40 @@ const postSuccess = (state, action) => {
   })
 }
 
-const postFail = (state, action) => {
+const postContentFail = (state, action) => {
   return updateObject(state, {
     error: action.payload,
     postLoading: false
+  })
+}
+
+const postCommentStart = (state, action) => {
+  return updateObject(state, {
+    commentLoading: true
+  })
+}
+
+const postCommentFail = (state, action) => {
+  return updateObject(state, {
+    commentLoading: false,
+    commentError: action.payload
+  })
+}
+
+const postCommentSuccess = (state, action) => {
+  const { comment, index } = action.payload;
+  console.log(comment);
+  const postComment = [comment, ...state.posts[index].comments];
+  console.log(postComment);
+  console.log(
+    updateObject(state, {
+      commentLoading: false
+    })
+
+  )
+  return updateObject(state, {
+    comments: [comment].concat(state.posts[index].comments),
+    commentLoading: false
   })
 }
 
@@ -56,9 +88,25 @@ const reducer = (state = initialState, action) => {
     case actionTypes.FETCH_SUCCESS: return fetchSuccess(state, action)
     case actionTypes.FETCH_START: return fetchStart(state, action)
     case actionTypes.FETCH_FAIL: return fetchFail(state, action)
-    case actionTypes.POST_SUCCESS: return postSuccess(state, action)
-    case actionTypes.POST_START: return postStart(state, action)
-    case actionTypes.POST_FAIL: return postFail(state, action)
+
+    case actionTypes.POST_COMMENT_SUCCESS:
+      return postCommentSuccess(state, action)
+
+    case actionTypes.POST_COMMENT_START:
+      return postCommentStart(state, action)
+
+    case actionTypes.POST_COMMENT_FAIL:
+      return postCommentFail(state, action)
+
+    case actionTypes.POST_CONTENT_SUCCESS:
+      return postContentSuccess(state, action)
+
+    case actionTypes.POST_CONTENT_START:
+      return postContentStart(state, action)
+
+    case actionTypes.POST_CONTENT_FAIL:
+      return postContentFail(state, action)
+
     default: return state
   }
 }

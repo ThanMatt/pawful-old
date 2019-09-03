@@ -5,7 +5,7 @@ import * as actions from '../../store/actions/index';
 import ProfileInfo from './ProfileInfo/profileInfo';
 import NewPost from './NewPost/NewPost';
 import VerifyEmail from './VerifyEmail/verifyEmail'
-import ContentPost from './ContentPost/contentPost';
+import ContentPost from './ContentPost/ContentPost';
 
 class Feed extends Component {
 
@@ -16,8 +16,10 @@ class Feed extends Component {
     onUserVerify(token)
   }
 
+
   render() {
     const { username, token, posts, loading, animal, userLoading, icon, isVerified } = this.props;
+
     const container = {
       width: '90%',
       margin: 'auto'
@@ -45,6 +47,9 @@ class Feed extends Component {
                         <ContentPost
                           data={post}
                           key={index}
+                          token={token}
+                          meIcon={icon}
+                          index={index}
                         />
                       )
 
@@ -69,7 +74,7 @@ const mapStateToProps = (state) => {
     posts: state.post.posts,
     loading: state.post.loading,
     userLoading: state.user.loading,
-    icon: state.user.icon
+    icon: state.user.icon,
   }
 }
 

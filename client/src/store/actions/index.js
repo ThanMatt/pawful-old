@@ -12,5 +12,5 @@ export {
 
 export {
   fetchPosts,
-  postContent
+  postContent,
 } from './post'
